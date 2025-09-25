@@ -38,6 +38,14 @@ app.get('/error', (req, res, next) => {
 
 // ...existing code...
 
+// Middleware para imprimir mensaje en consola
+app.use((req, res, next) => {
+    console.log('SE HA REALIZADO UNA SOLICITUD');
+    next();
+});
+
+// ...existing code...
+
 app.get('/estados',(req, res)=>{
     const estados = [
         'Jalisco',
@@ -72,11 +80,7 @@ app.get('/comparar/:num1/:num2', (req, res) => {
 
 // ...existing code...
 
-// Middleware para imprimir mensaje en consola
-app.use((req, res, next) => {
-    console.log('SE HA REALIZADO UNA SOLICITUD');
-    next();
-});
+
 
 // ...existing code...
 
@@ -84,6 +88,18 @@ app.use((req, res, next) => {
 app.use((req, res, next) => {
     const error = new Error('Ruta no encontrada');
     error.status = 404;
+    next(error);
+});
+
+// ...existing code...
+
+
+
+// ...existing code...
+
+app.get('/mantenimiento', (req, res, next) => {
+    const error = new Error('SERVIDOR EN MANTENIMIENTO');
+    error.status = 503;
     next(error);
 });
 
